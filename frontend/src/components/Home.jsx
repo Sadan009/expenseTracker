@@ -4,7 +4,9 @@ import UserAuth from './UserAuth';
 function Home() {
   return (
     <div>
-        <UserAuth />
+        {/* <UserAuth />
+       */}
+       welcome from the landing page
     </div>
   );
 }

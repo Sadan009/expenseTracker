@@ -1,10 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
-app.use(express.json());
-const mongoose = require("mongoose");
-const PORT = 8000;
 const cors = require("cors");
+const mongoose = require("mongoose");
+const app = express();
+const PORT = 8000;
+
+
+app.use(express.json());
 app.use(cors());
 
 // Connection: 
@@ -15,6 +17,6 @@ db.once("open", () => console.error("*** Database connection Successful! ***"));
 
 
 const userRouter = require("./router/user-router");
-app.use("/users", userRouter);
+app.use("/user", userRouter);
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
