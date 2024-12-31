@@ -4,6 +4,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import Home from "./components/Home";
 import Layout from "./components/layouts/layout";
+import MainPage from "./components/MainPage";
+import UserRegister from "./components/UserRegister";
+import UserAuth from "./components/UserAuth";
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
         <Layout />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<MainPage />} />
+          <Route path="/signup" element={<UserRegister />} />
+          <Route path="/login" element={<UserAuth />} />
         </Routes>
       </Router>
     </div>
