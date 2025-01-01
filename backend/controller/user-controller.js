@@ -9,7 +9,7 @@ exports.signUp = async (req, res) => {
       email: email,
     });
     user.save();
-    return res.status(200).send({ msg: "user created successfully!" });
+    return res.status(200).json({msg:"successfully registered!"});
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

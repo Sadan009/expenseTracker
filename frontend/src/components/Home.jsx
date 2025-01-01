@@ -4,7 +4,7 @@ import UserAuth from './UserAuth';
 function Home() {
   return (
     <div>
-        <UserAuth />
+        {/* <UserAuth /> */}
     </div>
   );
 }

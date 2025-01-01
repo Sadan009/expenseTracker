@@ -14,8 +14,8 @@ function App() {
       <Router>
         <Layout />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<MainPage />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<MainPage />} />
           <Route path="/signup" element={<UserRegister />} />
           <Route path="/login" element={<UserAuth />} />
         </Routes>

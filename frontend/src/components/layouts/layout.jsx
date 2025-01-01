@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function Layout() {
   const [userName, setUserName] = useState("Sadan Imam");
   const [user, setUser] = useState("");
 
   // const { id } = useParams();
-  
+
   // useEffect(() => {
-  //   fetch(`http://localhost:8000/users/signin/${id}`, {
-  //     method : "GET",
-  //       headers : {
-  //           "Authorization"  : "Bearer " + localStorage.getItem("token")
-  //       }
-  //   }).then((res) => {
-  //     res.json().then((data) => {
-  //       if (data.username) {
-  //         setUserName()
-  //       }
-  //     })
-  //   })
+   
 
   //   if (response.data && response.data._id === id) {
   //     setUser(response.data);
   //   } else {
   //     console.log("Invalid user ID");
-  //   }  
+  //   }
   //   });
+  const navigation = useNavigate();
+  const onLoginClick = () => {
+    navigation("/login");
+  };
 
   return (
     <header className="flex items-center justify-between p-4 border-b-2 border-black">
@@ -44,12 +37,13 @@ function Layout() {
           </div>
         </div>
       ) : (
-        <button className="py-1 w-32 mx-7 border rounded-2xl shadow-sm bg-sky-600 text-white">
+        <button
+          onClick={onLoginClick}
+          className="py-1 w-32 mx-7 border rounded-2xl shadow-sm bg-sky-600 text-white"
+        >
           Login
         </button>
       )}
-
-      
     </header>
   );
 }

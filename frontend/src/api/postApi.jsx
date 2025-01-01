@@ -10,11 +10,16 @@ export const getUsers = () => {
 };
 
 // // get method
-// export const signIn = (id) => {
-//   return api.get(`/signin/${id}`);
-// };
+export const signIn = (id) => {
+  return api.get(`/signin/${id}`);
+};
 
 //get user detail:
 export const getUserDetails = (id) => {
   return api.get(`/userdetail/${id}`);
+};
+
+// post method add user - Signup
+export const addUser = () => {
+  return api.post('/signup');
 };
