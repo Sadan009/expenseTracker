@@ -9,30 +9,26 @@ exports.signUp = async (req, res) => {
       email: email,
     });
     user.save();
-    return res.status(200).json({msg:"successfully registered!"});
+    return res.status(200).json({ msg: "successfully registered!" });
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
   }
 };
 
-// exports.signIn = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//       res.status(500).json({
-//         message: "User doesn't exist",
-//       });
-//     } else {
-//       res.json({
-//         email: user.email,
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+exports.signIn = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email: email, password: password });
+    if (!user) {
+      res.status(500).json(false);
+    } else {
+      res.status(200).json({user});
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 exports.getById = async (req, res) => {
   try {
@@ -51,6 +47,21 @@ exports.getUser = async (req, res) => {
     const users = await User.find();
     console.log(users);
     return res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.isTaken = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const findEmail = await User.findOne({ email: email });
+    console.log(findEmail);
+    if (findEmail) {
+      return res.status(200).json(true);
+    } else {
+      res.status(200).json(false);
+    }
   } catch (err) {
     console.log(err);
   }

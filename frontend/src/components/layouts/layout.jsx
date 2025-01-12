@@ -3,22 +3,11 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 function Layout() {
   const [userName, setUserName] = useState("Sadan Imam");
-  const [user, setUser] = useState("");
+  const [isUser, setIsUser] = useState("");
 
-  // const { id } = useParams();
-
-  // useEffect(() => {
-   
-
-  //   if (response.data && response.data._id === id) {
-  //     setUser(response.data);
-  //   } else {
-  //     console.log("Invalid user ID");
-  //   }
-  //   });
   const navigation = useNavigate();
   const onLoginClick = () => {
-    navigation("/login");
+    navigation("/");
   };
 
   return (
@@ -28,7 +17,7 @@ function Layout() {
         <span className="text-blue-400">E</span>xpense{" "}
         <span className="text-blue-400">T</span>racker
       </h1>
-      {user ? (
+      {isUser ? (
         <div className="flex items-center">
           <span className="mr-2 text-lg">{userName}</span>
           <div className="w-8 h-8 flex rounded-full bg-blue-500 items-center justify-center text-white ">

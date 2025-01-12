@@ -12,12 +12,12 @@ function App() {
   return (
     <div>
       <Router>
-        <Layout />
+        <Layout  />
         <Routes>
           {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/" element={<MainPage />} />
+          <Route path="/home" element={<MainPage />} />
           <Route path="/signup" element={<UserRegister />} />
-          <Route path="/login" element={<UserAuth />} />
+          <Route path="/" element={<UserAuth />} />
         </Routes>
       </Router>
     </div>

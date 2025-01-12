@@ -1,28 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { getUserDetails } from "../api/postApi";
 import { PieChart } from "react-minimal-pie-chart";
 import { PiAirplaneInFlightFill } from "react-icons/pi";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { GiClothes } from "react-icons/gi";
+import { BiMoviePlay } from "react-icons/bi";
 
 function MainPage() {
   const [users, setUsers] = useState([]);
-  //   console.log(users);
-  //   const { id } = useParams();
-
-  //   const fetchUserDetails = async (id) => {
-  //     try {
-  //       const res = await getUserDetails(id);
-  //       console.log(res.data);
-  //       setUsers(res.data);
-  //     } catch (error) {
-  //       console.error("Error fetching user:", error);
-  //       // Handle error (e.g., display an error message)
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     fetchUserDetails(id);
-  //   }, []);
 
   return (
     <div className=" min-h-screen p-8 flex flex-col md:flex-row gap-8">
@@ -63,7 +48,7 @@ function MainPage() {
             </div>
             <div className="flex items-center justify-between animate-pulse bg-gray-200 p-2 rounded w-full">
               <div className="flex items-center gap-3">
-                <PiAirplaneInFlightFill />
+                <IoFastFoodOutline />
                 <span>Food & Beverages</span>
               </div>
               <div>
@@ -72,7 +57,7 @@ function MainPage() {
             </div>
             <div className="flex items-center justify-between animate-pulse bg-gray-200 p-2 rounded w-full">
               <div className="flex items-center gap-3">
-                <PiAirplaneInFlightFill />
+                <GiClothes />
                 <span>Clothes</span>
               </div>
               <div>
@@ -81,7 +66,7 @@ function MainPage() {
             </div>
             <div className="flex items-center justify-between animate-pulse bg-gray-200 p-2 rounded w-full">
               <div className="flex items-center gap-3">
-                <PiAirplaneInFlightFill />
+                <BiMoviePlay />
                 <span>Entertainment</span>
               </div>
               <div>

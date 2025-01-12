@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-// import { addUser, getUserDetails } from "../api/postApi";
-import axios from "axios";
+import { emailTaken, signUp } from "../api/postApi";
 
 function UserRegister() {
   const [errors, setErrors] = useState({});
@@ -10,8 +9,9 @@ function UserRegister() {
   // set the key error to the UI : if it's true then gave more padding and margin to the input field and input box-container
 
   const [isTaken, setIsTaken] = useState(false);
+  console.log("from hook", isTaken);
 
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   let [inputformData, setInputFormData] = useState({
     username: "",
     email: "",
@@ -20,70 +20,83 @@ function UserRegister() {
   });
 
   const inputRef = useRef(null);
-
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  // form Validation:
-  const handleValidation = () => {
-    const validationErrors = {};
-
-    // check userName:
-    if (inputformData.username.trim() === "") {
-      validationErrors.username = "username is required";
-    }
-    // check email:
-    if (inputformData.email.trim() === "") {
-      validationErrors.email = "email is required";
-    } else if (isTaken) {
-      validationErrors.email = "email is already in use";
-    } else if (!/\S+@\S+\.\S+/.test(inputformData.email)) {
-      validationErrors.email = "Invalid email format";
-    }
-    // Check password:
-    if (inputformData.password === "") {
-      validationErrors.password = "password is required";
-    } else if (inputformData.password.length < 6) {
-      validationErrors.password = "password must min. 6 letters";
-    }
-    // check confirm password:
-
-    if (
-      inputformData.confirmPassword.trim() === "" ||
-      inputformData.confirmPassword !== inputformData.password
-    ) {
-      validationErrors.confirmPassword = "Password doesn't matched";
-    }
-
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length !== 0) {
-      setKeyErrors(true);
-    }
+  // false : create ,
+  const checkEmailAvail = async (email) => {
+    const res = await emailTaken(email);
+    console.log("email check: ", res.data);
+    setIsTaken(res.data);
   };
 
   // input change:
   const handleChange = (e) => {
-    setInputFormData({ ...inputformData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setInputFormData({ ...inputformData, [name]: value });
     //    console.log(inputformData);
+
+    if (name === "email") {
+      checkEmailAvail(value);
+    }
   };
 
+  // form Validation:
+  // const handleValidation = () => {
+  //   const validationErrors = {};
+
+  //   // check userName:
+  //   if (inputformData.username.trim() === "") {
+  //     validationErrors.username = "username is required";
+  //   }
+
+  //   // check email:
+  //   if (inputformData.email.trim() === "") {
+  //     validationErrors.email = "email is required";
+  //   } else if (isTaken) {
+  //     validationErrors.email = "email is already in use";
+  //   } else if (!/\S+@\S+\.\S+/.test(inputformData.email)) {
+  //     validationErrors.email = "Invalid email format";
+  //   }
+
+  //   // Check password:
+  //   if (inputformData.password === "") {
+  //     validationErrors.password = "password is required";
+  //   } else if (inputformData.password.length < 6) {
+  //     validationErrors.password = "password must min. 6 letters";
+  //   }
+
+  //   // check confirm password:
+  //   if (
+  //     inputformData.confirmPassword.trim() === "" ||
+  //     inputformData.confirmPassword !== inputformData.password
+  //   ) {
+  //     validationErrors.confirmPassword = "Password doesn't matched";
+  //   }
+
+  //   setErrors(validationErrors);
+  //   if (Object.keys(validationErrors).length !== 0) {
+  //     setKeyErrors(true);
+  //   }
+  // };
+
   // onClick submit:
+  
+
   const handleRegister = async (e) => {
     e.preventDefault();
     const valid = handleValidation(e);
-    // console.log("Form working");
     if (valid && !isTaken) {
       try {
-        const res = await axios.post(
-          `http://localhost:8000/users/signup`,
-          inputformData
-        );
+        const res = await signUp(inputformData);
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
+    } else {
+      alert("Email is used already!");
     }
-    console.log("Form not Working");
   };
 
   return (

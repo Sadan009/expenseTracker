@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { isLogin } from "../api/postApi";
 
-function UserAuth() {
+function UserAuth({user}) {
+
   const [errors, setErrors] = useState({});
-  const [user, setUser] = useState({});
+  const [isUser, setIsUser] = useState({});
   let [inputformData, setInputFormData] = useState({
     firstName: "",
     lastName: "",
     password: "",
   });
-
+  const navigation = useNavigate();
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -21,24 +23,26 @@ function UserAuth() {
     //    console.log(inputformData);
   };
 
-  //  const handleSubmit = async (e) => {
-  //    e.preventDefault();
-  //      const res = await isLogin(inputformData);
-  //      if (
-  //        inputformData.email === res.data.email &&
-  //        inputformData.password === res.data.password
-  //      ) {
-  //        console.log("Login Successfull");
-  //     //    navigation("/");
-  //      } else {
-  //        console.log("login failed");
-  //      }
-  //  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await isLogin(inputformData);
+    console.log(res.data);
+    setIsUser(res.data);
+    if (res) {
+      console.log("Login Successfull");
+      navigation("/home");
+    } else {
+      console.log("login failed");
+    }
+  };
 
   return (
     <div className="flex h-screen col-auto">
       <div className="md:w-1/2 flex flex-col items-center justify-center ">
-        <form className="flex flex-col items-center border border-opacity-75 rounded-2xl py-5 px-4 h-3/6 shadow-lg border-gray-300">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center border border-opacity-75 rounded-2xl py-5 px-4 h-3/6 shadow-lg border-gray-300"
+        >
           <input
             onChange={handleChange}
             ref={inputRef}
